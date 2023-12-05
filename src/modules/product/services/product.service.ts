@@ -95,7 +95,7 @@ export class ProductService {
     let fetchProductsQuery;
     let values;
 
-    if (filterKey === 'all') {
+    if (!filter || filterKey === 'all') {
       totalCountQuery = `
         SELECT COUNT(*) FROM products
         WHERE LOWER(id::TEXT || title || category) LIKE $1
@@ -126,11 +126,11 @@ export class ProductService {
 
       totalCountQuery = `
         SELECT COUNT(*) FROM products
-        WHERE ${filterKey} LIKE $1
+        WHERE ${filterKey}::TEXT LIKE $1
       `;
       fetchProductsQuery = `
         SELECT * FROM products
-        WHERE ${filterKey} LIKE $1
+        WHERE ${filterKey}::TEXT LIKE $1
         ORDER BY id
         LIMIT $2 OFFSET $3;
       `;
@@ -173,11 +173,6 @@ export class ProductService {
   }
 
   async create(product: Product): Promise<Product> {
-    console.log(
-      '🚀 ~ file: product.service.ts:164 ~ ProductService ~ create ~ product:',
-      product,
-    );
-
     // reset Sequence
     // await this.resetSequence();
     return this.productRepository.save(product);

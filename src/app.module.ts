@@ -6,7 +6,6 @@ import { ProductModule } from './modules/product/product.module';
 import databaseConfig from './config/database.config';
 import { Product } from './modules/product/entities/product.entity';
 
-console.log('test  ::  ', databaseConfig);
 @Module({
   imports: [
     TypeOrmModule.forRoot({ ...databaseConfig, entities: [Product] }),

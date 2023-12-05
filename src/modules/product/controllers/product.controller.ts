@@ -21,8 +21,8 @@ export class ProductController {
 
   @Get()
   async findAll(
-    @Query('page') page: number,
     @Query('limit') limit: number,
+    @Query('page') page: number,
     @Query('skip') skip: number,
     @Query('searchText') searchText: string,
     @Query('filter') filter: string,
